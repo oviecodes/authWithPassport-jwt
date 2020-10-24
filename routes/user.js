@@ -19,8 +19,6 @@ router.route('/login')
 router.route('/dashboard')
     .all(passport.authenticate('jwt', { session: false }))
     .get(async(req, res) => {
-        
-        console.log(req.user)
         res.status(200).json({ msg: `welcome to your dashboard` })
     })
     .post()

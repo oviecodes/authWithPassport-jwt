@@ -2,9 +2,13 @@
 
 const express = require('express')
 const mongoose = require('mongoose')
+const userRoutes = require('./routes/user')
+const passport = require('passport')
+const jwtAuth = require('./config/passportLogic')
 const port = 3000
 
 const app = express()
+jwtAuth(passport)
 
 mongoose.connect(`mongodb://localhost:27017/passport-jwt`, 
     {
@@ -21,6 +25,8 @@ mongoose.connect(`mongodb://localhost:27017/passport-jwt`,
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+app.use('/users', userRoutes)
 
 app.get('/', async(req, res) => {
     res.json({ msg: 'Welcome to the homepage' })
